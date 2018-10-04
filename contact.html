@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Contact Information</title>
+	<style> input, textarea{
+    display: block
+}
+</style>
+</head>
+
+<body>
+	<form action="POST">
+		<label for="email">Email:</label>
+		<input value="asdf@asdf.com"type="email" required id="email" name="email" placeholder="Place your email example@example.com" autocomplete="email">
+		<label for="name">Your name</label>
+		<input value="asdf"type="name" required autocomplete="name" id="name" name="name">
+		<label for="message">Message</label>
+		<textarea value="asdf" required placeholder="Your message" name="message" id="message">
+            </textarea>
+		<input type="submit" id="submit" value="submit" onclick="submit">
+
+    </form>
+</body>
+<script>
+	var submitButton = document.getElementById("submit");
+	submitButton.addEventListener("click", submit);
+
+	function submit(e) {
+		e.preventDefault();
+		var form = document.querySelector("form");
+		var formData = new FormData(form);
+		formObject = {};
+		for (entry of formData) {
+			formObject[entry[0]] = entry[1]
+		}
+		fetch('myEmailAPIendPoint', {
+			method: 'POST',
+			headers: {
+				"Content-Type": "application/json; charset=utf-8",
+			},
+			body: JSON.stringify(formObject)
+		})
+	}
+</script>
+
+</html>
